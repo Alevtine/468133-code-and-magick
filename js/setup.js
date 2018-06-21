@@ -32,6 +32,8 @@ var openPopup = function () {
 };
 
 var closePopup = function () {
+  setupBlock.style.left = '';
+  setupBlock.style.top = '';
   setupBlock.classList.add('hidden');
 };
 
