@@ -5,7 +5,7 @@
   var ESC_KEY = 27;
   var ENTER_KEY = 13;
   var ERRBLOCK_DELAY = 5000;
-
+  var DEBOUNCE_INTERVAL = 500;
 
   window.utils = {
 
@@ -75,6 +75,19 @@
         document.addEventListener('mouseup', onMouseup);
       };
       handler.addEventListener('mousedown', onMousedown);
+    },
+
+    debounce: function (fun) {
+      var lastTimeout = null;
+      return function () {
+        var args = arguments;
+        if (lastTimeout) {
+          window.clearTimeout(lastTimeout);
+        }
+        lastTimeout = window.setTimeout(function () {
+          fun.apply(null, args);
+        }, DEBOUNCE_INTERVAL);
+      };
     }
 
   };
