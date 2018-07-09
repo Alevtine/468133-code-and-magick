@@ -6,7 +6,7 @@
   var EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
   var FIREBALL_COLORS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
 
-
+  var userWizard = document.querySelector('.setup-wizard-wrap');
   var userWizardCoat = document.querySelector('.setup-wizard .wizard-coat');
   var userWizardEyes = document.querySelector('.setup-wizard .wizard-eyes');
   var fireball = document.querySelector('.setup-fireball-wrap');
@@ -86,30 +86,32 @@
     return arr;
   };
 
-
-  userWizardCoat.addEventListener('click', function () {
-    changeElementColor(userWizardCoat, COAT_COLORS, 'fill');
-    document.querySelector('input[name="coat-color"]').value = userWizardCoat.style.fill;
-    var newColor = userWizardCoat.style.fill;
-    coatColor = newColor;
-    updateWizards();
-  });
-
-  userWizardEyes.addEventListener('click', function () {
-    changeElementColor(userWizardEyes, EYES_COLORS, 'fill');
-    document.querySelector('input[name="eyes-color"]').value = userWizardEyes.style.fill;
-    var newColor = userWizardEyes.style.fill;
-    eyesColor = newColor;
-    updateWizards();
-  });
-
+  var onUserWizard = function (evt) {
+    var newColor;
+    switch (evt.target) {
+      case userWizardCoat:
+        changeElementColor(userWizardCoat, COAT_COLORS, 'fill');
+        document.querySelector('input[name="coat-color"]').value = userWizardCoat.style.fill;
+        newColor = userWizardCoat.style.fill;
+        coatColor = newColor;
+        updateWizards();
+        break;
+      case userWizardEyes:
+        changeElementColor(userWizardEyes, EYES_COLORS, 'fill');
+        document.querySelector('input[name="eyes-color"]').value = userWizardEyes.style.fill;
+        newColor = userWizardEyes.style.fill;
+        eyesColor = newColor;
+        updateWizards();
+        break;
+    }
+  };
 
   fireball.addEventListener('click', function () {
     changeElementColor(fireball, FIREBALL_COLORS, 'background');
     document.querySelector('input[name="fireball-color"]').value = fireball.style.background;
   });
 
-
+  userWizard.addEventListener('click', window.utils.debounce(onUserWizard));
   window.backend.load(onSuccess, onError);
 
   // если загруж jsonp
