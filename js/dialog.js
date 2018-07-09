@@ -1,9 +1,9 @@
 'use strict';
 
 (function () {
+  var userDialog = document.querySelector('.setup-user-pic');
   var setupBlock = document.querySelector('.setup');
   var setupForm = document.querySelector('.setup-wizard-form');
-  var submitButton = document.querySelector('.setup-submit');
 
   userDialog.setAttribute('style', 'z-index: 1');
 
