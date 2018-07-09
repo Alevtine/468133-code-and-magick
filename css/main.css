@@ -2,12 +2,10 @@ html,
 body
 {
     font: 20px 'PT Mono';
-
     min-width: 1024px;
     margin: 0;
     margin: 0 auto;
     padding: 0;
-
     color: #fff;
     background: #da641a;
 }

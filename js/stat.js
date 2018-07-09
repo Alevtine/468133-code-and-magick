@@ -64,6 +64,8 @@ var renderCloud = function (ctx, color) {
 };
 
 window.renderStatistics = function (ctx, names, times) {
+
+  names.sort();
   renderShadow(ctx, 'rgba(0, 0, 0, 0.7)');
   renderCloud(ctx, 'white');
 
@@ -89,4 +91,5 @@ window.renderStatistics = function (ctx, names, times) {
         CLOUD_X + GIST_GAP + (GIST_GAP + GIST_WIDTH) * i,
         CLOUD_X + GIST_HEIGHT - GIST_HEIGHT * times[i] / maxTime - CLOUD_Y * 1.5);
   }
+
 };
