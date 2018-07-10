@@ -6,6 +6,8 @@
   var ENTER_KEY = 13;
   var ERRBLOCK_DELAY = 5000;
   var DEBOUNCE_INTERVAL = 500;
+  var FILE_TYPES = ['jpg', 'gif', 'jpeg', 'png'];
+
 
   window.utils = {
 
@@ -45,8 +47,10 @@
     },
 
     slide: function (elem, handler) {
+      var moving;
       var onMousedown = function (evt) {
         evt.preventDefault();
+        moving = false;
         var beginCoords = {
           x: evt.clientX,
           y: evt.clientY
@@ -54,6 +58,7 @@
 
         var onMousemove = function (evtMove) {
           evtMove.preventDefault();
+          moving = true;
           var shift = {
             x: beginCoords.x - evtMove.clientX,
             y: beginCoords.y - evtMove.clientY
@@ -70,6 +75,15 @@
           evtUp.preventDefault();
           document.removeEventListener('mousemove', onMousemove);
           document.removeEventListener('mouseup', onMouseup);
+
+          if (moving) {
+            var preventUpload = function (cEvt) {
+              cEvt.preventDefault();
+              moving = false;
+              handler.removeEventListener('click', preventUpload);
+            };
+            handler.addEventListener('click', preventUpload);
+          }
         };
         document.addEventListener('mousemove', onMousemove);
         document.addEventListener('mouseup', onMouseup);
@@ -88,6 +102,26 @@
           fun.apply(null, args);
         }, DEBOUNCE_INTERVAL);
       };
+    },
+
+    fileChooser: function (file, upload) {
+      try {
+        var fileName = file.name.toLowerCase();
+        var matches = FILE_TYPES.some(function (item) {
+          return fileName.endsWith(item);
+        });
+        if (matches) {
+          var reader = new FileReader();
+          reader.onload = function () {
+            upload.src = reader.result;
+          };
+          reader.readAsDataURL(file);
+        } else {
+          window.utils.onError('изображение загрузите');
+        }
+      } catch (err) {
+        window.utils.onError('что-нибудь загрузите');
+      }
     }
 
   };
