@@ -706,15 +706,12 @@ input[type=radio]:checked + .review-mark-label
 {
     display: inline-block;
     overflow: hidden;
-
-    width: 40px;
-    height: 40px;
+    width: 100px;
+    /* height: 100px; */
     margin-top: -10px;
     margin-right: 5px;
-
     vertical-align: middle;
-
-    border-radius: 40px;
+    /* border-radius: 40px; */
 }
 
 .setup-user-name
@@ -722,9 +719,7 @@ input[type=radio]:checked + .review-mark-label
     font-family: 'PT Mono', serif;
     font-size: 30px;
     font-weight: 900;
-
-    width: 500px;
-
+    width: 505px;
     color: #fff;
     border: 0;
     background: transparent;
@@ -834,7 +829,6 @@ input[type=radio]:checked + .review-mark-label
     box-sizing: border-box;
     width: 65px;
     height: 65px;
-
     border: solid 1px rgba(255, 255, 255, .5);
     background: rgba(0, 0, 0, .1);
 }
@@ -984,9 +978,7 @@ input[type=radio]:checked + .review-mark-label
 .upload
 {
     position: relative;
-
     display: inline-block;
-
     box-sizing: border-box;
     width: 40px;
     min-width: 40px;
@@ -999,16 +991,14 @@ input[type=radio]:checked + .review-mark-label
     position: absolute;
     top: 0;
     left: 0;
-
     display: block;
-
     margin: 0;
 }
 
 .upload input
 {
     position: absolute;
-    z-index: 0;
+    display: none;
     top: 0;
     left: 0;
 
@@ -1016,4 +1006,23 @@ input[type=radio]:checked + .review-mark-label
     height: 100%;
 
     opacity: 0;
+}
+
+.upload label
+{
+  cursor: pointer;
+}
+
+.bag
+{
+  position: fixed;
+  background-color: #1cb34d;
+  padding: 10px;
+  top: 400px;
+  color: aliceblue;
+}
+
+.bag li
+{
+list-style-type: none;
 }

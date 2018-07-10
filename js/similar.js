@@ -18,6 +18,8 @@
       .querySelector('.setup-similar-item');
 
   var similarWizards = [];
+  var eyesColor;
+  var coatColor;
 
   var changeElementColor = function (elem, source, property) {
     elem.style[property] = window.utils.getRandomValue(source);
@@ -32,10 +34,6 @@
   var onError = function (errorMessage) {
     window.utils.onError(errorMessage);
   };
-
-
-  var eyesColor;
-  var coatColor;
 
   var getRate = function (wizard) {
     var rate = 0;
@@ -75,7 +73,29 @@
     wizardElement.querySelector('.wizard-coat').style.fill = item.colorCoat;
     wizardElement.querySelector('.wizard-eyes').style.fill = item.colorEyes;
     similarWizardsList.appendChild(wizardElement);
+
+    var artifactsFragment = document.createDocumentFragment();
+    var wizardArtifacts = document.createElement('ul');
+    wizardArtifacts.classList.add('bag', 'hidden');
+
+    item.artifacts.forEach(function (it, i) {
+      var artifactInfo = document.createElement('li');
+      artifactInfo.textContent = (i + 1) + '.' + it.name;
+      wizardArtifacts.appendChild(artifactInfo);
+      artifactsFragment.appendChild(wizardArtifacts);
+    });
+    wizardElement.appendChild(artifactsFragment);
+
+    wizardElement.addEventListener('mouseenter', function () {
+      wizardArtifacts.classList.remove('hidden');
+    });
+
+    wizardElement.addEventListener('mouseleave', function () {
+      wizardArtifacts.classList.add('hidden');
+    });
+
   };
+
 
   var renderAll = function (arr) {
     var oldWizards = similarWizardsList.querySelectorAll('.setup-similar-item');
@@ -113,6 +133,7 @@
 
   userWizard.addEventListener('click', window.utils.debounce(onUserWizard));
   window.backend.load(onSuccess, onError);
+
 
   // если загруж jsonp
   // var CALLBACK_NAME = 'jsonpCallback';
